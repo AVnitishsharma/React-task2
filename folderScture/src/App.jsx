@@ -4,15 +4,15 @@ const App = () => {
 
   const [name, setname] = React.useState("");
   const [number, setnumber] = React.useState("");
-  const [image, setimage] = React.useState("");
 
+  const [newuser, setnewuser] = React.useState([])
   const submitbtn = (e) => {
     e.preventDefault();
-    console.log(name, number, image);
-    // alert("Form Submitted Successfully")
+    const olduser = [...newuser]
+    olduser.push({name, number})
+    setnewuser(olduser)
     setname("")
     setnumber("")
-    setimage("")
   }
   return (
     <div>
@@ -38,23 +38,15 @@ const App = () => {
           setnumber(e.target.value)
          } 
          />
-        <input
-          type="file"
-          accept='image/*'
-          placeholder='Profile Image'
-          value={image}
-          onChange={(e) =>
-            setimage(e.target.value)
-          } 
-        />
         <button>Submit</button>
       </form>
-      <div className='details'>
-        <h2>Your Details</h2>
-        <p>Name: {name}</p>
-        <p>Number: {number}</p>
-        <p>Image: {image}</p>
-      </div>
+      {newuser.map((item, index) => (
+        <div key={index}>
+          <h2>Your Name is: {item.name}</h2>
+          <h2>Your Number is: {item.number}</h2>
+        </div>
+      ))
+      }
     </div>
   )
 }
