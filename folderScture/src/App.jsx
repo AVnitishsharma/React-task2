@@ -48,12 +48,23 @@ const App = () => {
         <h1>Your Contacts</h1>
         {newuser.map((item, index) => (
           <div className="userbox">
-            <i class="ri-user-line"></i>
+            <div className='letter'>{item.name[0].toUpperCase()}</div>
             <div key={index} className="userdetails">
-              <h2>{item.name}</h2>
+              <h2>{item.name.charAt(0).toUpperCase() + item.name.slice(1)}</h2>
               <h2>{item.number}</h2>
             </div>
-            <i class="ri-information-line"></i>
+            <i onClick={()=>{
+                const olduser = [...newuser];  //create a copy of the current user list
+                olduser.splice(index,1);    //remove the user at the specified index
+                setnewuser(olduser);      //update the state with the new user list
+              }} class="ri-delete-bin-2-line">
+            </i>
+            <div className="info">
+              <i class="ri-phone-fill"></i>
+              <i class="ri-mail-fill"></i>
+              <i class="ri-video-on-line"></i>
+              <i class="ri-list-check"></i>
+            </div>
           </div>
         ))}
       </div>
